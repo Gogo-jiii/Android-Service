@@ -3,12 +3,16 @@ package com.example.service;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView txtResultValue;
     Intent normalServiceIntent;
     Intent boundedServiceIntent;
+    Intent foregroundServiceIntent;
     BoundedService boundedService;
     private boolean isServiceBounded = false;
 
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         normalServiceIntent = new Intent(this, NormalService.class);
         boundedServiceIntent = new Intent(this, BoundedService.class);
+        foregroundServiceIntent = new Intent(this, ForegroundService.class);
 
         bindService(boundedServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
@@ -70,16 +76,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnStopBoundService:
-                if(isServiceBounded){
+                if (isServiceBounded) {
                     unbindService(serviceConnection);
                     isServiceBounded = false;
                 }
                 break;
 
             case R.id.btnStartForegroundService:
+                startService(foregroundServiceIntent);
                 break;
 
             case R.id.btnStopForegroundService:
+                stopService(foregroundServiceIntent);
                 break;
         }
     }
