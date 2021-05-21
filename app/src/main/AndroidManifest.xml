@@ -10,11 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Service">
         <service
-            android:name=".NormalService2"
+            android:name=".BoundedService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false"></service>
         <service
             android:name=".NormalService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".NormalServiceWithHandlerMessage"
             android:enabled="true"
             android:exported="false" />
 
